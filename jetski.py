@@ -18,13 +18,13 @@ class JetSki:
         self._acceleration = 0.75
         self._reverse_acceleration = 0.25
         self._friction = 0.05
-        self._max_speed = 6
+        self._max_speed = 8
 
         self._angle = 0
         self._rotate_speed = 0
         self._rotation_acceleration = 1
-        self._rotate_friction = 0.05
-        self._max_rotation = 3
+        self._rotate_friction = 0.2
+        self._max_rotation = 5
 
         self.forward = False
         self.left = False
@@ -103,8 +103,6 @@ class JetSki:
         self.y -= math.cos(radian)*self._speed
 
     def draw(self):
-        # 30 pixels of deadspace before and after jet ski
-
         if self.forward:
             center_rotate_image(self.surface, self.img1,
                                 (self.x, self.y), self._angle)
