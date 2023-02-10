@@ -21,3 +21,6 @@ def rotated_image_mask(image, top_left, angle):
         center=image.get_rect(topleft=top_left).center)
     mask = pygame.mask.from_surface(rotated_image)
     return mask, center
+
+def create_polygon_from_mask():
+    pass

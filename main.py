@@ -4,6 +4,7 @@ from jetski import JetSki
 from obstacles import Obstacle
 import utils as U
 import random
+import itertools
 
 pygame.init()
 
@@ -11,6 +12,8 @@ JETSKI_BLUE = U.image_resize(pygame.image.load("img/bluejs.png"), 0.4)
 JETSKI_GREEN = U.image_resize(pygame.image.load("img/greenjs.png"), 0.28)
 JETSKI_GREEN1 = U.image_resize(pygame.image.load("img/greenjs1.png"), 0.28)
 SHARK = U.image_resize(pygame.image.load("img/sharkfin.png"), 0.07)
+SHARK1 = U.image_resize(pygame.image.load("img/sharkfin1.png"), 0.07)
+SHARK2 = U.image_resize(pygame.image.load("img/sharkfin1.png"), 0.07)
 SWIMMER = U.image_resize(pygame.image.load("img/lilolady.png"), 0.4)
 OCEAN = U.image_resize(pygame.image.load("img/ocean1.png"), 1.4)
 
@@ -29,6 +32,7 @@ while game_running:
     surface.blit(OCEAN, (0, 0))
     jetski1.move()
     jetski1.draw()
+    jetski1.screen_border()
     swimmer.move()
     obshark.move()
     obshark.draw()

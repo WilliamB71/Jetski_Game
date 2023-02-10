@@ -2,6 +2,8 @@ import pygame
 import math
 from pygame import Vector2
 from utils import center_rotate_image as center_rotate_image
+from utils import rotated_image_mask as rotated_image_mask
+
 
 
 class JetSki:
@@ -14,6 +16,7 @@ class JetSki:
         self.height = img.get_height()
         self.surface = surface
 
+        self._damage = 0
         self._speed = 0
         self._acceleration = 0.75
         self._reverse_acceleration = 0.25
@@ -30,6 +33,7 @@ class JetSki:
         self.left = False
         self.right = False
         self.reverse = False
+        
 
     def user_input(self, keys):
         if keys[pygame.K_UP]:
@@ -48,6 +52,29 @@ class JetSki:
             self.right = True
         elif not keys[pygame.K_RIGHT]:
             self.right = False
+
+    def screen_border(self):
+        surface_mask = pygame.mask.from_surface(self.surface)
+        jetski_mask, jetski_coords = rotated_image_mask(self.img, (self.x, self.y), self._angle)
+
+        a = surface_mask.overlap_area(jetski_mask, ((self.surface.get_width() / 2), (self.surface.get_height() /2)))
+        b = surface_mask.overlap_area(jetski_mask, (jetski_coords[0], jetski_coords[1]))
+        print(self._damage)
+        if a != b:
+            self._damage += 1
+            temp_speed = self._speed
+            self._speed =  0
+            if abs(temp_speed) < 0.5:
+                self._speed  -2 * temp_speed
+            else:
+                self._speed = -temp_speed
+            
+            if self._damage > 10:
+                pygame.quit()
+            
+        
+        
+
 
     def move(self):
         def rotate():
