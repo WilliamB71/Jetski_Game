@@ -1,5 +1,4 @@
 import pygame
-import math
 
 
 def image_resize(img, scale):
@@ -25,7 +24,8 @@ def rotated_image_mask(image, top_left, angle):
 
 def score_update_display(surface, clock, score):
     score_font = pygame.font.Font('freesansbold.ttf', 24)
-    score_display = score_font.render('Level: ' + str(int(score/20 + 1)) + '   Score: ' + str(int(score)), True, (255, 255, 255))
+    score_display = score_font.render(
+        'Level: ' + str(int(score/20 + 1)) + '   Score: ' + str(int(score)), True, (255, 255, 255))
     score_rect = score_display.get_rect()
     score_rect.x = 230
     score_rect.y = 7

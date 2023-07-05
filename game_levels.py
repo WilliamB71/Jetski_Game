@@ -159,6 +159,30 @@ class gameplay(JetSki, Obstacle):
         pygame.display.update()
         self.clock.tick(40)
 
+    def game_over_screen(self):
+        self.surface.blit(self.OCEAN, (0, 0))
+        title_font = pygame.font.Font('freesansbold.ttf', 60)
+        text_font = pygame.font.Font('freesansbold.ttf', 26)
+        screen_width = self.OCEAN.get_width()
+
+        title_display = title_font.render(
+            'Game Over', True, (255, 255, 255))
+        text_display1 = text_font.render(
+            f'You scored {str(int(self.score))}!', True, (255, 255, 255))
+        text_display2 = text_font.render(
+            'Press [ESC] to quit or [ENTER / SPACE] to try again.', True, (255, 255, 255))
+        title_rect = title_display.get_rect()
+        text1_rect = text_display1.get_rect()
+        text2_rect = text_display2.get_rect()
+        title_rect.x, title_rect.y = (screen_width-title_rect.width)/2,  100
+        text1_rect.x, text1_rect.y = (screen_width-text1_rect.width)/2, 500
+        text2_rect.x, text2_rect.y = (screen_width-text2_rect.width)/2, 550
+        self.surface.blit(self.JETSKI_GREEN, (605, 350))
+        self.surface.blit(title_display, title_rect)
+        self.surface.blit(text_display1, text1_rect)
+        self.surface.blit(text_display2, text2_rect)
+        pygame.display.flip()
+
     def introduction_screen(self):
         self.surface.blit(self.OCEAN, (0, 0))
         title_font = pygame.font.Font('freesansbold.ttf', 60)
@@ -198,6 +222,9 @@ class gameplay(JetSki, Obstacle):
                         intro_running = False
 
         while game_running:
+            if user._target_health <= 0:
+                break
+
             if self.score < 1 and self.level1_obstacles == None:
                 self.level1_init(user)
                 obstacles = self.level1_obstacles
@@ -229,3 +256,19 @@ class gameplay(JetSki, Obstacle):
                 self.start_level(obstacles)
 
             self.game_loop(user, obstacles)
+
+        while True:
+            self.game_over_screen()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key in [pygame.K_RETURN, pygame.K_SPACE]:
+                        pygame.init()
+                        clock = pygame.time.Clock()
+                        pygame.display.set_caption("Busy Harbour")
+                        game_running = True
+                        score = 0
+                        game = gameplay(clock, score)
+                        game.run(game_running)

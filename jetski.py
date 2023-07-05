@@ -73,32 +73,34 @@ class JetSki:
             else:
                 self._speed = -temp_speed
             
-    def health_check(self):
-        if self._target_health <= 0:
-                pygame.quit()
+    # def health_check(self):
+    #     if self._target_health <= 0:
+    #             pygame.quit()
             
     def take_damage(self):
         self._target_health -= self._damage
 
     def health_bar(self):
         
-        JetSki.health_check(self)
+        # JetSki.health_check(self)
 
         transition_bar_height = 0
 
         if self._health > self._target_health:
             self._health -= self._damage_change_speed
-            transition_bar_height = 25
+            transition_bar_height = 35
         
         health_width = int(self._target_health * self.health_bar_factor)
         transition_bar_width = int((self._health - self._target_health) * self.health_bar_factor)
 
-        health_bar = pygame.Rect(10, 5, health_width, 25)
+        health_bar = pygame.Rect(10, 5, health_width, 35)
         transition_bar = pygame.Rect(health_bar.right, 5, transition_bar_width, transition_bar_height)
+        background_bar = pygame.Rect(10, 5, (self._health_border_width*self.health_bar_factor), 35)
 
+        pygame.draw.rect(self.surface, (128,128,128), background_bar)
         pygame.draw.rect(self.surface, (0,255,0), health_bar)
         pygame.draw.rect(self.surface, (255,69,0), transition_bar)
-        pygame.draw.rect(self.surface, (255,255,255), (10,5, int(self._health_border_width*self.health_bar_factor), 25), 4)
+        pygame.draw.rect(self.surface, (255,255,255), (10,5, int(self._health_border_width*self.health_bar_factor), 35), 4)
 
 
     def move(self):
