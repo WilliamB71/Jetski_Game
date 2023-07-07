@@ -3,7 +3,10 @@
 Jetskiing game made with PyGame, avoid the obstacles to 
 
 # | Gameplay Demo |
-https://github.com/WilliamB71/Jetski_Game/assets/109232737/cf6b20c5-7fd5-4bc7-971f-ba2b1a93e80e
+
+
+https://github.com/WilliamB71/Jetski_Game/assets/109232737/05dcc810-c97e-43e2-a28d-648312393d40
+
 
 # | Skills Demonstrated |
 Object-Oriented Programming: The code showcases my proficiency in OOP principles by utilising classes and objects to represent game entities such as the player's jet ski, obstacles.
